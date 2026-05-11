@@ -340,6 +340,8 @@ input:focus-visible {
   border: 0;
   border-radius: 8px;
   background: #1f2937;
+  color: inherit;
+  cursor: pointer;
   padding: 16px 12px;
   text-align: center;
   box-shadow: var(--shadow-soft);
@@ -367,6 +369,19 @@ input:focus-visible {
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.stat-title span::after {
+  content: " tap to rename";
+  font-weight: 700;
+  text-transform: none;
+}
+
+@media (hover: hover) {
+  .stat-title:hover {
+    background: #2b3647;
+    box-shadow: 0 12px 28px rgba(17, 24, 39, 0.16);
+  }
 }
 
 .stat-tap {
@@ -713,6 +728,10 @@ th:nth-child(4) {
 
   .stat-title span {
     font-size: 0.66rem;
+  }
+
+  .stat-title span::after {
+    content: "";
   }
 
   .stat-tap {

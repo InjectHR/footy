@@ -102,8 +102,17 @@ function ensureStateShape() {
   };
 
   const existingStats = Array.isArray(state.stats) ? state.stats : [];
-  const customStats = existingStats.filter((stat) => stat.custom && stat.name);
-  state.stats = [...DEFAULT_STATS.map((stat) => ({ ...stat })), ...customStats];
+  const defaultIds = new Set(DEFAULT_STATS.map((stat) => stat.id));
+  const defaultStats = DEFAULT_STATS.map((defaultStat) => {
+    const existingStat = existingStats.find((stat) => stat.id === defaultStat.id);
+    return {
+      ...defaultStat,
+      name: existingStat?.name || defaultStat.name,
+      custom: false,
+    };
+  });
+  const customStats = existingStats.filter((stat) => stat.custom && stat.name && !defaultIds.has(stat.id));
+  state.stats = [...defaultStats, ...customStats];
 
   state.counts = state.counts || { home: {}, away: {} };
   state.counts.home = state.counts.home || {};
@@ -170,6 +179,12 @@ function bindEvents() {
   });
 
   elements.statBoard.addEventListener("click", (event) => {
+    const editButton = event.target.closest("button[data-edit-stat]");
+    if (editButton) {
+      renameStat(editButton.dataset.editStat);
+      return;
+    }
+
     const button = event.target.closest("button[data-team][data-stat]");
     if (!button) {
       return;
@@ -259,12 +274,12 @@ function renderStatBoard() {
       return `
         <article class="stat-row">
           ${renderTapButton("home", stat, HOME_TEAM, homeQuarter, homeTotal)}
-          <div class="stat-title">
+          <button class="stat-title" type="button" data-edit-stat="${escapeAttribute(stat.id)}" aria-label="Rename ${escapeAttribute(stat.name)}">
             <div>
               <span>Q${state.currentQuarter}</span>
               <strong>${escapeHtml(stat.name)}</strong>
             </div>
-          </div>
+          </button>
           ${renderTapButton("away", stat, state.awayTeam.name, awayQuarter, awayTotal)}
         </article>
       `;
@@ -390,6 +405,39 @@ function addCustomStat(rawName) {
   renderCustomStats();
   renderSummary();
   setStatus(`${name} added.`);
+}
+
+function renameStat(statId) {
+  const stat = state.stats.find((item) => item.id === statId);
+  if (!stat) {
+    return;
+  }
+
+  const newName = window.prompt("Rename this stat", stat.name);
+  if (newName === null) {
+    return;
+  }
+
+  const name = newName.trim().replace(/\s+/g, " ");
+  if (!name) {
+    setStatus("Stat name was not changed.");
+    return;
+  }
+
+  const duplicate = state.stats.some(
+    (item) => item.id !== statId && item.name.toLowerCase() === name.toLowerCase()
+  );
+  if (duplicate) {
+    setStatus("That stat name is already on the page.");
+    return;
+  }
+
+  stat.name = name;
+  saveState();
+  renderStatBoard();
+  renderCustomStats();
+  renderSummary();
+  setStatus(`Renamed stat to ${name}.`);
 }
 
 function removeCustomStat(statId) {
