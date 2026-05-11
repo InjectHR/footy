@@ -1,5 +1,5 @@
 const STORAGE_KEY = "murrumbeena-afl-stat-counter-v1";
-const HOME_TEAM = "Murrumbeena";
+const HOME_TEAM = "Beena";
 const HOME_COLOR = "#751832";
 const DEFAULT_AWAY_COLOR = "#0f766e";
 const QUARTERS = [1, 2, 3, 4];
