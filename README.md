@@ -9,7 +9,6 @@ A simple tap-first AFL stat counter for Murrumbeena games. It is built as a stat
 - Adds custom stats during a game.
 - Keeps Murrumbeena as the maroon home team.
 - Lets you set the away team name and colour.
-- Shows a Murrumbeena logo when `murrumbeena-logo.png` is uploaded beside the app files.
 - Includes a configurable countdown clock.
 - Opens your email app with the game summary filled in.
 
@@ -20,7 +19,7 @@ Open `index.html` in a browser.
 ## Put it on GitHub Pages
 
 1. Create a new GitHub repository.
-2. Upload `index.html`, `styles.css`, `app.js`, `README.md`, and `murrumbeena-logo.png` if you want the Murrumbeena logo to show.
+2. Upload `index.html`, `styles.css`, `app.js`, and `README.md`.
 3. Open the repository settings.
 4. Go to Pages.
 5. Set the source to the main branch and root folder.

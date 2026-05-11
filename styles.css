@@ -110,39 +110,12 @@ input:focus-visible {
 }
 
 .home-team {
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
 }
 
 .away-team {
   border-left-color: var(--away-color);
-}
-
-.team-logo-slot {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: #ffffff;
-  padding: 3px;
-  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.08);
-}
-
-.team-logo-slot.logo-missing::before {
-  color: var(--home-color);
-  content: "MC";
-  font-size: 1.25rem;
-  font-weight: 900;
-}
-
-.team-logo {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 .team-copy {
@@ -646,39 +619,47 @@ th:nth-child(4) {
 }
 
 @media (max-width: 640px) {
+  .app-shell {
+    padding: 8px;
+  }
+
+  .app-titlebar {
+    margin-bottom: 8px;
+    padding: 10px 12px;
+  }
+
+  .app-titlebar h1 {
+    font-size: 1.28rem;
+  }
+
   .match-strip {
-    grid-template-columns: 1fr 86px 1fr;
+    grid-template-columns: minmax(0, 1fr) 68px minmax(0, 1fr);
   }
 
   .team-block {
-    padding: 12px;
-  }
-
-  .home-team {
-    grid-template-columns: 58px minmax(0, 1fr);
-    gap: 10px;
-  }
-
-  .team-logo-slot {
-    width: 58px;
-    height: 58px;
+    gap: 6px;
+    padding: 10px;
+    border-left-width: 5px;
   }
 
   .team-block strong,
   .team-block input[type="text"] {
-    font-size: 1.18rem;
+    font-size: 1rem;
   }
 
   .quarter-badge strong {
-    font-size: 1.9rem;
+    font-size: 1.55rem;
   }
 
   .clock-panel {
     grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
   }
 
   .clock-face {
-    font-size: 2.6rem;
+    font-size: 2.1rem;
+    padding: 12px 8px;
   }
 
   .toolbar > button,
@@ -691,27 +672,69 @@ th:nth-child(4) {
     margin-left: 0;
   }
 
+  .toolbar {
+    gap: 6px;
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+
+  .quarter-picker {
+    min-width: 100%;
+  }
+
+  .quarter-picker button,
+  .secondary-button,
+  .primary-button,
+  .danger-button {
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 0.86rem;
+  }
+
+  .stat-board {
+    gap: 8px;
+  }
+
   .stat-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(82px, 0.72fr) minmax(0, 1fr);
+    gap: 6px;
   }
 
   .stat-title {
-    grid-column: 1 / -1;
-    min-height: 76px;
-    padding: 16px 10px 12px;
+    grid-column: auto;
+    min-height: 96px;
+    padding: 14px 6px 8px;
   }
 
   .stat-title strong {
-    font-size: 1.3rem;
+    font-size: 0.9rem;
+    line-height: 1.08;
+  }
+
+  .stat-title span {
+    font-size: 0.66rem;
   }
 
   .stat-tap {
-    min-height: 132px;
-    padding: 14px;
+    min-height: 96px;
+    padding: 10px 6px 9px 10px;
+  }
+
+  .stat-tap::before {
+    width: 5px;
+  }
+
+  .tap-team {
+    font-size: 0.64rem;
+    line-height: 1.1;
   }
 
   .tap-count {
-    font-size: 2.5rem;
+    font-size: 2rem;
+  }
+
+  .tap-total {
+    font-size: 0.68rem;
   }
 
   .inline-form {
