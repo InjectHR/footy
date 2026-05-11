@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#6f1428">
+    <title>Team Stat Counter</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="app-titlebar">
+        <h1>Team Stat Counter</h1>
+      </div>
+
+      <header class="topbar">
+        <section class="match-strip" aria-label="Match teams">
+          <div class="team-block home-team">
+            <span class="team-label">Home</span>
+            <strong id="homeTeamName">Murrumbeena</strong>
+          </div>
+
+          <div class="quarter-badge" aria-live="polite">
+            <span>Quarter</span>
+            <strong id="currentQuarterLabel">Q1</strong>
+          </div>
+
+          <div class="team-block away-team">
+            <label class="team-label" for="awayTeamName">Away</label>
+            <input id="awayTeamName" type="text" autocomplete="off" value="Away Team" aria-label="Away team name">
+            <label class="color-control" for="awayTeamColor">
+              <span>Colour</span>
+              <input id="awayTeamColor" type="color" value="#126a72" aria-label="Away team colour">
+            </label>
+          </div>
+        </section>
+
+        <section class="clock-panel" aria-label="Quarter clock">
+          <div class="clock-face" id="clockDisplay" aria-live="polite">20:00</div>
+          <div class="clock-settings">
+            <label for="quarterLength">Quarter length</label>
+            <div class="number-input">
+              <input id="quarterLength" type="number" min="1" max="40" step="1" value="20">
+              <span>min</span>
+            </div>
+          </div>
+          <div class="clock-actions">
+            <button class="secondary-button" id="clockStart" type="button">Start</button>
+            <button class="secondary-button" id="clockReset" type="button">Reset clock</button>
+          </div>
+        </section>
+      </header>
+
+      <main>
+        <section class="toolbar" aria-label="Game controls">
+          <div class="quarter-picker" id="quarterPicker" role="group" aria-label="Choose quarter"></div>
+          <button class="primary-button" id="endQuarter" type="button">End quarter</button>
+          <button class="secondary-button" id="undoLast" type="button">Undo last tap</button>
+          <button class="danger-button" id="newGame" type="button">New game</button>
+        </section>
+
+        <section class="stat-board" id="statBoard" aria-label="Stat buttons"></section>
+
+        <section class="lower-grid">
+          <form class="panel" id="customStatForm">
+            <div class="panel-heading">
+              <h2>Custom stats</h2>
+            </div>
+            <div class="inline-form">
+              <label class="sr-only" for="customStatName">Custom stat name</label>
+              <input id="customStatName" type="text" autocomplete="off" placeholder="Smothers, spoils, rebounds">
+              <button class="secondary-button" type="submit">Add stat</button>
+            </div>
+            <div class="custom-list" id="customStatList" aria-live="polite"></div>
+          </form>
+
+          <section class="panel email-panel" aria-label="Email game stats">
+            <div class="panel-heading">
+              <h2>Send stats</h2>
+            </div>
+            <label for="emailAddress">Email address</label>
+            <div class="inline-form">
+              <input id="emailAddress" type="email" autocomplete="email" placeholder="you@example.com">
+              <button class="primary-button" id="emailStats" type="button">Email stats</button>
+            </div>
+            <button class="secondary-button full-width" id="copySummary" type="button">Copy summary</button>
+            <p class="status-line" id="statusLine" role="status" aria-live="polite"></p>
+          </section>
+        </section>
+
+        <section class="summary-section" aria-label="Game summary">
+          <div class="summary-heading">
+            <h2>Quarter tallies</h2>
+            <span id="matchLabel">Murrumbeena v Away Team</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Quarter</th>
+                  <th scope="col">Stat</th>
+                  <th scope="col">Murrumbeena</th>
+                  <th scope="col" id="awaySummaryHeading">Away Team</th>
+                </tr>
+              </thead>
+              <tbody id="summaryBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
